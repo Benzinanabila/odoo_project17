@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--    to inherit the account.move to showing the purchase order subtotal in words-->
+        <record id="custom_contact_view" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit.nif.nis.rc</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="information cf">
+                        <group>
+                            <field name="nif" string="NIF"/>
+                            <field name="nis" string="NIS"/>
+                            <field name="rc" string="RC"/>
+                        </group>
+                    </page>
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
