@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <data>
+       <record id="view_hospital_appointement_tree" model="ir.ui.view">
+            <field name="name">hospital.appointement.tree</field>
+            <field name="model">hospital.appointement</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="reference"/>
+                    <field name="patient_id"/>
+                    <field name="create_uid" groups="om_hospital.group_hospital_doctors"/>
+                    <field name="date" optional="show"/>
+                    <field name="state" optional="show"
+                           decoration-success="state=='done'"
+                           decoration-info="state=='draft'"
+                           decoration-danger="state=='cancel'"
+                           decoration-warning="state=='engoing'"
+                           widget="badge"
+                    />
+                    <field name="Prix"/>
+                    <field name="my_currency_id"/>
+
+                    <button name="action_done" type="object" invisible="state!='engoing'" class="fa fa-check btn-success"/>
+                    <button name="%(om_hospital.action_hospital_cancel)d" type="action" class="fa fa-time btn-danger" invisible="state not in ('draft','engoing')"/>
+                </tree>
+            </field>
+       </record>
+       <record id="view_hospital_appointement_form" model="ir.ui.view">
+            <field name="name">hospital.appointement.form</field>
+            <field name="model">hospital.appointement</field>
+            <field name="arch" type="xml">
+                <form string="appointements">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" invisible="state!='draft'" class="oe_highlight"/>
+                        <button name="action_ongoing" type="object" string="ongoing" invisible="state!='confirmed'" class="oe_highlight"/>
+                        <button name="action_done" type="object" string="done" confirm="Are u sure to done it" invisible="state!='engoing'" class="oe_highlight"/>
+                        <button name="action_share_whatsapp" type="object" string="share in whatsapp" data-hotkey="w" icon="fa-whatsapp" class="oe_highlight"/>
+<!--                        <button name="action_cancel" type="object" string="cancel" invisible="state=='done','cancel'"/>-->
+                        <button name="%(om_hospital.action_hospital_cancel)d" type="action" string="cancel" data-hotkey="z" context="{}"
+                                invisible="state not in ('draft','engoing')"/>
+                        <button name="action_send_mail" type="object" string="send mail" icon="fa fa-envelope" class="oe_highlight"/>
+                        <button name="open_wizard" type="object" string="open wizard" class="oe_highlight"></button>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,engoing,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="name"></label>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="reference"/>
+                                <field name="patient_id"/>
+                                <field name="date_of_birth"/>
+                                <field name="date"/>
+                            </group>
+                            <group>
+                                <field name="total_qty"/>
+                                <field name="create_uid"/>
+                                <field name="patient_id2"/>
+                                <field name="my_currency_id" placeholder="please select the currency "/>
+                                <field name="Prix"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="appointements">
+                                <field name="appointement_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="qty"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <field name="product_id"/>
+                                                <field name="qty"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+
+                            </page>
+                            <page name="other info">
+                                <group>
+                                    <field name="note"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+
+            </field>
+       </record>
+       <record id="action_hospital_appointement" model="ir.actions.act_window">
+           <field name="name">appointements</field>
+           <field name="res_model">hospital.appointement</field>
+           <field name="view_mode">tree,form</field>
+<!--           <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
+           <field name="help" type="html">
+               <p class="o_view_nocontent_smiling_face">Create a new appointement </p>
+           </field>
+       </record>
+
+<!--       <menuitem id="cancel_appointement" name=" cancel Appointement" parent="menu_FRONT_DESK" action="action_hospital_cancel">-->
+<!--       </menuitem>-->
+    </data>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hospital_patient,access.hospital.patient,model_hospital_patient,om_hospital.group_hospital_receptionist,1,1,1,1
+access_hospital_appointement,access.hospital.appointement,model_hospital_appointement,om_hospital.group_hospital_receptionist,1,1,1,1
+access_hospital_appointement_line,access.hospital.appointement.line,model_hospital_appointement_line,om_hospital.group_hospital_receptionist,1,1,1,1
+access_patient_tag_doctors,access.patient.tag.doctors,model_patient_tag,om_hospital.group_hospital_doctors,1,1,1,1
+access_patient_tag_receptionist,access.patient.tag.receptionist,model_patient_tag,om_hospital.group_hospital_receptionist,1,1,1,0
+access_cancel_appointement,access.cancel.appointement.data.wiz,model_cancel_appointement_data_wiz,base.group_user,1,1,1,1
+access_custum_patient_wizard,access.custum.patient.data.wiz,model_custum_patient_data_wiz,base.group_user,1,1,1,1

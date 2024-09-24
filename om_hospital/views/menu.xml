@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+       <menuitem id="menu_hospital_root" name="HMS" web_icon="om_hospital,static/description/hospital_management.png" sequence="35">
+       </menuitem>
+       <menuitem id="menu_FRONT_DESK" name="front desk" parent="menu_hospital_root">
+       </menuitem>
+       <menuitem id="menu_patients" name="Patients" parent="menu_FRONT_DESK" action="action_hospital_patient">
+       </menuitem>
+       <menuitem id="menu_patients_readonly" name="view Patients" parent="menu_FRONT_DESK" action="action_hospital_readonly_patient">
+       </menuitem>
+       <menuitem id="menu_appointement" name="Appointement" parent="menu_FRONT_DESK" action="action_hospital_appointement">
+       </menuitem>
+       <menuitem id="menu_appointement_line" name="Appointement line" parent="menu_FRONT_DESK" action="action_hospital_appointement_line">
+       </menuitem>
+       <menuitem id="menu_configuration" name="configuration" groups="group_hospital_doctors" parent="menu_hospital_root">
+       </menuitem>
+<!--       groups="group_hospital_doctors"-->
+       <menuitem id="menu_patient_tag" name="tags" parent="menu_configuration" action="action_patient_tag">
+       </menuitem>
+       <menuitem id="cancel_appointement" name=" cancel Appointement" parent="menu_FRONT_DESK" action="action_hospital_cancel">
+       </menuitem>
+</odoo>

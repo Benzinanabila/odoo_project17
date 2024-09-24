@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="print_appointement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            h2 {font-family: 'Roboto-Bold';}
+                            th {font-family: 'Roboto-BoldItalic';}
+                            td {font-family: 'Roboto-LightItalic.ttf';}
+                        </style>
+                        <div class="row">
+                            <div class="col-6">
+
+                                <h2><span t-field="o.name"/></h2>
+                                <h2>Patient name:<span t-field="o.patient_id"/></h2>
+                                <h4><center>Appointement details:</center></h4>
+                                <t t-set="total_qty" t-value="o.get_total_qty()"/>
+                                <h2> Total quantity:   <span t-esc="total_qty"/></h2>
+                            </div>
+                            <div class="col-6">
+                                <img t-attf-src="/report/barcode/QR/{{o.reference}}_{{o.name}}?&amp;width=100&amp;height=100&amp;quiet=0" width="100" height="100" alt="QR Code"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <table class="table table-bordered">
+                            <head>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>qty</th>
+                                </tr>
+                            </head>
+                            <body>
+                                <t t-foreach="o.appointement_line_ids" t-as="appointement">
+                                    <tr>
+                                        <td><span t-field="appointement.product_id"/></td>
+                                        <td><span t-field="appointement.qty"/></td>
+                                    </tr>
+                                </t>
+                            </body>
+                        </table>
+                        <div>
+                            <strong>Note:</strong>
+                        </div>
+                        <span t-field="o.note"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="appointement_action" model="ir.actions.report">
+        <field name="name">Print appointement</field>
+        <field name="model">hospital.appointement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">om_hospital.print_appointement</field>
+        <field name="report_file">om_hospital.print_appointement</field>
+        <field name="binding_model_id" ref="model_hospital_appointement"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

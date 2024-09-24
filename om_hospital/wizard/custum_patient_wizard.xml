@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="custum_patient_data_wizard_form" model="ir.ui.view">
+            <field name="name">custum.patient.data.wizard.form</field>
+            <field name="model">custum.patient.data.wiz</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="button_confirm" string="Add patient" type="object"></button>
+                        <button string="close" class="oe_link" special="cancel"></button>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="patient_id2"/>
+                        </group>
+                    </sheet>
+                </form>
+<!--                <footer>-->
+<!--                    <button name="button_confirm" string="Add patient" type="object"></button>-->
+<!--&lt;!&ndash;                    <button string="close" class="oe_link" special="cancel"></button>&ndash;&gt;-->
+<!--                </footer>-->
+            </field>
+        </record>
+    </data>
+</odoo>
