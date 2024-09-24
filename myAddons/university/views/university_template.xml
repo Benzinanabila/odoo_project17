@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="site_web_university" name="university details">
+        <t t-call="website.layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <div class="container">
+                    <br/>
+                    <center>
+                        <h3>University details</h3>
+                    </center>
+                    <br/>
+                    <table style="width:77pt; height:150pt" class="table-striped table">
+                        <thead style="font-size:30px">
+                            <tr>
+                                <th>Student</th>
+                                <th>Departement</th>
+                                <th>Classoom</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="record" t-as="order">
+                                <tr>
+                                    <td>
+                                        <span t-esc="order.l_name"/>
+                                        <span t-esc="order.f_name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="order.departement_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="order.classroom_id.classroom_name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

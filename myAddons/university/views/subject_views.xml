@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="subject_list_views">
+      <field name="name">subject list</field>
+      <field name="model">university.subject</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="code"/>
+
+        </tree>
+      </field>
+    </record>
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="subject_form_views">
+      <field name="name">subject form</field>
+      <field name="model">university.subject</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="code"/>
+              <field name="departement_id"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="list of professors">
+              <field name="professor_ids"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="subject_action_window">
+      <field name="name">subject window</field>
+      <field name="res_model">university.subject</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu categories -->
+
+    <menuitem name="subjects" id="university_subject_cat" parent="university.menu_root"/>
+    <!--<menuitem name="Menu 2" id="university.menu_2" parent="university.menu_root"/> -->
+
+    <!-- actions -->
+
+    <menuitem name="List of subjects" id="university_subjects_list" parent="university_subject_cat"
+              action="subject_action_window"/>
+    <!-- <menuitem name="Server to list" id="university" parent="university.menu_2"
+              action="university.action_server"/> -->
+
+  </data>
+</odoo>

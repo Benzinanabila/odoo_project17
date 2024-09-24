@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--        To shows the amount in words on the invoice send mail-->
+        <record id="email_template_prof" model="mail.template">
+            <field name="name">template professor</field>
+            <field name="model_id" ref = "university.model_university_professor"> </field>
+            <field name="subject" >{{object.l_name}} Invitation  </field>
+            <field name="email_from">{{ user.email }}</field>
+            <field name="email_to">{{ object.professor_id.email if object else '' }}</field>
+
+            <field name="body_html" type="html">
+                <div>
+                    <div>
+                        <h2>
+                            Hi,
+                            <t t-out="object.professor_id.f_name and object.professor_id.l_name"/>
+                        </h2>
+                        <div>
+                            <h3>
+                                 we invite you to be present in week's assembly.
+                            </h3>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    Regards,
+                    <br/>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

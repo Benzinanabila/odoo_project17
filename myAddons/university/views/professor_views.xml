@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="professor_list_views">
+      <field name="name">professor list</field>
+      <field name="model">university.professor</field>
+      <field name="arch" type="xml">
+        <tree name="professors">
+          <field name="f_name"/>
+          <field name="l_name"/>
+          <field name="sexe"/>
+          <field name="identity_card"/>
+          <field name="birthday"/>
+          <field name="inscription_date"/>
+        </tree>
+      </field>
+    </record>
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="professor_form_views">
+      <field name="name">Professor form</field>
+      <field name="model">university.professor</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+              <div class="oe_button_box" name="button_box">
+                  <field name="date"/>
+                  <button string="send mail" icon="fa fa-envelope" class="oe_highlight" name="action_send_mail" type="object"></button>
+                  <button class="oe_stat_button" name="toggle_active" type="object" icon="fa-archive">
+                      <field name="active" widget="boolean_button"/>
+                  </button>
+              </div>
+            <group>
+              <group>
+                <field name="f_name"/>
+                <field name="l_name"/>
+                <field name="sexe"/>
+                <field name="identity_card"/>
+                <field name="birthday"/>
+              </group>
+              <group>
+                <field name="inscription_date"/>
+                <field name="adress"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="departement_id"/>
+                <field name="subject_id"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="list of classrooms">
+                <field name="classroom_ids"/>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="professor_action_window">
+      <field name="name">University Professor</field>
+      <field name="res_model">university.professor</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu categories -->
+
+    <menuitem name="Professors" id="university_professor_cat" parent="university.menu_root"/>
+    <!--<menuitem name="Menu 2" id="university.menu_2" parent="university.menu_root"/> -->
+
+    <!-- actions -->
+
+    <menuitem name="List of professors" id="university_professor_list" parent="university_professor_cat"
+              action="professor_action_window"/>
+    <!-- <menuitem name="Server to list" id="university" parent="university.menu_2"
+              action="university.action_server"/> -->
+
+  </data>
+</odoo>

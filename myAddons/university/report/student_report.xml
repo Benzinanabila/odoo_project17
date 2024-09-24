@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="print_student">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <table style="width:77pt; height:150pt" class="table-borderless">
+                            <tr style="height:30%">
+                                <td align="right" valign="left">
+                                    <span t-if="o.image">
+                                        <img t-att-src="image_data_uri(o.image)"
+                                             style="max-height:100pt;max-width:90%" alt="Student Logo"/>
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <div class="row">
+                            <div class="col-6">
+                                <h4 style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left">Faculté:<span t-field="o.university"/></h4>
+                                <h4 style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left">Departement:<span t-field="o.departement_id"/></h4>
+                                <h1 style="font-size:30pt; margin-bottom:0pt;margin-top:0pt;" align="center"><u>RELEVE DE NOTES</u>:</h1>
+                                <h4 style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left"><gras>First name:</gras><span t-field="o.f_name"/></h4>
+                                <h4 style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left">Last name:<span t-field="o.l_name"/></h4>
+                                <h4 style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left">Email:<span t-field="o.email"/></h4>
+                                <h4 style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left">Classroom: <span t-field="o.classroom_id"/></h4>
+                            </div>
+                        </div>
+                        <hr/>
+                        <table class="table table-bordered">
+                            <head>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Coef</th>
+                                    <th>Note</th>
+                                </tr>
+                            </head>
+                            <body>
+                                <t t-foreach="o.student_subject_ids" t-as="s">
+                                    <tr>
+                                        <td><span t-field="s.subject_id"/></td>
+                                        <td><span t-field="s.coef"/></td>
+                                        <td><span t-field="s.note"/></td>
+                                    </tr>
+                                </t>
+                            </body>
+                        </table>
+                        <div>
+                            <strong>Moyen:</strong>
+                        </div>
+                        <span t-field="o.moyen"/>
+                        <t t-if="o.level == ('L2','L3')">
+                            <div class="o_report_heading">
+                                 <strong>Congratulation you passed to: <span t-field="o.level" readonly="1"/> </strong>
+                            </div>
+                        </t>
+                        <t t-if="o.level == 'finished'">
+                            <div class="o_report_heading">
+                                <strong>Congratulations you finished your courses!</strong>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="student_action" model="ir.actions.report">
+        <field name="name">Print student</field>
+        <field name="model">university.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">university.print_student</field>
+        <field name="report_file">university.print_student</field>
+        <field name="binding_model_id" ref="model_university_student"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

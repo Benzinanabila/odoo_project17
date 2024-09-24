@@ -1,0 +1,138 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="student_list_views">
+      <field name="name">Student list</field>
+      <field name="model">university.student</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="f_name"/>
+          <field name="l_name"/>
+          <field name="sexe"/>
+          <field name="identity_card"/>
+          <field name="birthday"/>
+          <field name="registration_date"/>
+          <field name="level"/>
+        </tree>
+      </field>
+    </record>
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="student_form_views">
+      <field name="name">Student form</field>
+      <field name="model">university.student</field>
+      <field name="arch" type="xml">
+          <form>
+              <header>
+                  <field name="date_of_today"/>
+                  <button name="level2" type="object" class="oe_highlight" invisible="level=='finished'"
+                          string="level 2"/>
+                  <button name="level3" type="object" string="level 3" invisible="level!='L2'" class="oe_highlight"/>
+                  <button name="finished" type="object" string="Finished" invisible="level!='L3'" class="oe_highlight"/>
+                  <field name="level" widget="statusbar" nolabel="1" statusbar_visible="L1,L2,L3,finished"/>
+              </header>
+              >
+              <sheet>
+
+                  <div class="oe_title">
+                      <label for="university" class="oe_edit_only" string="university name"></label>
+                      <h1>
+                          <field name="university"/>
+                      </h1>
+                  </div>
+                  <field name="image" widget="image" class="oe_avatar"/>
+                  <group>
+                      <group>
+                          <field name="f_name"/>
+                          <field name="l_name"/>
+                          <field name="sexe"/>
+                          <field name="identity_card"/>
+                          <field name="birthday"/>
+                      </group>
+                      <group>
+                          <field name="registration_date"/>
+                          <field name="adress" invisible="identity_card == False"/>
+                          <field name="email"/>
+                          <field name="phone"/>
+                          <field name="departement_id"/>
+                          <field name="classroom_id" required="departement_id != False"/>
+                      </group>
+                      <group>
+                          <field name="ref_field_id"/>
+                      </group>
+                  </group>
+                  <notebook>
+                      <page name="subjects">
+                          <field name="student_subject_ids">
+                              <tree editable="bottom">
+                                  <field name="subject_id"/>
+                                  <field name="coef"/>
+                                  <field name="credit"/>
+                                  <field name="note"/>
+                              </tree>
+
+                              <form>
+                                  <sheet>
+                                      <group>
+                                          <field name="subject_id"/>
+                                          <field name="coef"/>
+                                          <field name="note"/>
+                                      </group>
+                                  </sheet>
+                              </form>
+                          </field>
+                      </page>
+                  </notebook>
+                  <form>
+                      <group>
+                          <field name="moyen">
+                              <div t-att-class="{'green': moyen &gt; 10, 'red': moyen &lt;= 10}">
+                                  <span>
+                                      <field name="moyen"/>
+                                  </span>
+                              </div>
+                          </field>
+                          <field name="someCredit">
+
+                          </field>
+                      </group>
+                      <strong invisible="level not in ('L2','L3')">Congratulation you passed to:
+                          <field name="level" readonly="1"/>
+                      </strong>
+
+                      <!-- Conditional Message for "finish" level -->
+                      <strong invisible="level!='finished'">Congratulations you finished your courses!</strong>
+                  </form>
+              </sheet>
+          </form>
+      </field>
+
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="student_action_window">
+      <field name="name">student window</field>
+      <field name="res_model">university.student</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="university" id="university.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Students" id="university_student_cat" parent="university.menu_root"/>
+    <!--<menuitem name="Menu 2" id="university.menu_2" parent="university.menu_root"/> -->
+
+    <!-- actions -->
+
+    <menuitem name="List of students" id="university_student_list" parent="university_student_cat"
+              action="student_action_window"/>
+    <!-- <menuitem name="Server to list" id="university" parent="university.menu_2"
+              action="university.action_server"/> -->
+
+  </data>
+</odoo>

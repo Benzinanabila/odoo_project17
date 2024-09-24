@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="departement_list_views">
+      <field name="name">departement list</field>
+      <field name="model">university.departement</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="code"/>
+        </tree>
+      </field>
+    </record>
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="departement_form_views">
+      <field name="name">departement form</field>
+      <field name="model">university.departement</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="name"/>
+          </group>
+          <group>
+            <field name="code"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="departement_action_window">
+      <field name="name">departement window</field>
+      <field name="res_model">university.departement</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu categories -->
+
+    <menuitem name="departements" id="university_departement_cat" parent="university.menu_root"/>
+    <!--<menuitem name="Menu 2" id="university.menu_2" parent="university.menu_root"/> -->
+
+    <!-- actions -->
+
+    <menuitem name="List of departements" id="university_departement_list" parent="university_departement_cat"
+              action="departement_action_window"/>
+    <!-- <menuitem name="Server to list" id="university" parent="university.menu_2"
+              action="university.action_server"/> -->
+
+  </data>
+</odoo>

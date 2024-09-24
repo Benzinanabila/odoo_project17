@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="classroom_list_views">
+      <field name="name">classroom list</field>
+      <field name="model">university.classroom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="classroom_name"/>
+          <field name="code"/>
+        </tree>
+      </field>
+    </record>
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="classroom_form_views">
+      <field name="name">classroom form</field>
+      <field name="model">university.classroom</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group string="personal information">
+                <field name="classroom_name"/>
+                <field name="code"/>
+
+              </group>
+              <group string=" other information">
+                <field name="num_prof"/>
+                <field name="num_sub"/>
+                <field name="num_stu"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="list of professors">
+                <field name="professor_ids"/>
+
+              </page>
+              <page string="list of subjects">
+                <field name="subject_ids"/>
+              </page>
+              <page string="list of students">
+                <field name="student_ids"/>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="classroom_action_window">
+      <field name="name">classroom window</field>
+      <field name="res_model">university.classroom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu categories -->
+
+    <menuitem name="classrooms" id="university_classroom_cat" parent="university.menu_root"/>
+    <!--<menuitem name="Menu 2" id="university.menu_2" parent="university.menu_root"/> -->
+
+    <!-- actions -->
+
+    <menuitem name="List of classrooms" id="university_classrooms_list" parent="university_classroom_cat"
+              action="classroom_action_window"/>
+    <!-- <menuitem name="Server to list" id="university" parent="university.menu_2"
+              action="university.action_server"/> -->
+
+  </data>
+</odoo>

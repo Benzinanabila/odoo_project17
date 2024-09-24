@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <data>
+       <record id="view_hospital_student_line_tree" model="ir.ui.view">
+            <field name="name">university.student.line.tree</field>
+            <field name="model">university.student.line</field>
+            <field name="arch" type="xml">
+                <tree string="student line" editable="top">
+                    <field name="student_id"/>
+                    <field name="subject_id"/>
+                    <field name="coef"/>
+                    <field name="credit"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+       </record>
+
+       <record id="action_student_line" model="ir.actions.act_window">
+           <field name="name">Student line</field>
+           <field name="res_model">university.student.line</field>
+           <field name="view_mode">tree</field>
+<!--           <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
+           <field name="help" type="html">
+               <p class="o_view_nocontent_smiling_face">Create a new student line</p>
+           </field>
+       </record>
+    </data>
+</odoo>
